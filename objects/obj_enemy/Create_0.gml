@@ -1,5 +1,5 @@
 move_speed = 2;        
-attack_range = 45;     
+attack_range = 100;     
 can_attack = true;     
 attack_cooldown = 60;  
 facing = "down";       

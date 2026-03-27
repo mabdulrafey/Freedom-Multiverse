@@ -8,8 +8,8 @@ if (iframes > 0) {
 
 // 2. Check if Jon Snow is dead
 if (hp <= 0) {
-    // For now, this just restarts the room when you die
-    room_goto(MainMenu); 
+    global.north_state = "lose"; // Triggers the defeat screen
+    instance_destroy();         // Removes Jon from the battlefield
 }
 
 // 1. Get keyboard input (Arrow keys only)
