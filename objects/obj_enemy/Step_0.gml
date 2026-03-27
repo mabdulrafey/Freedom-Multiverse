@@ -37,6 +37,20 @@ if (instance_exists(obj_snow)) {
         // Move the enemy
         x += _hspd;
         y += _vspd;
+		// Enemy Footstep Audio
+		if (_hspd != 0 || _vspd != 0) {
+			footstep_timer -= 1;
+			if (footstep_timer <= 0) {
+				var _step = audio_play_sound(snd_footstep_snow, 1, false);
+        
+				// Make the enemy footsteps slightly deeper pitched to sound like heavier armor
+				audio_sound_pitch(_step, random_range(0.6, 0.9)); 
+        
+				footstep_timer = footstep_delay;
+			}
+		} else {
+			footstep_timer = 0;
+		}
 
         // Turn on walking animation
         image_speed = 0.5; // Adjust this to match your animation speed

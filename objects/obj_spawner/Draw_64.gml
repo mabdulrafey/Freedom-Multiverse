@@ -13,9 +13,9 @@ if (global.north_state == "win") {
     
     // Tell them how to restart
     draw_set_color(c_white);
-    draw_text(_center_x, _center_y + 30, "Press ENTER to restart");
+    draw_text(_center_x, _center_y + 30, "Press ENTER to go to next Universe");
     
-    if (keyboard_check_pressed(vk_enter)) { room_restart(); }
+    if (keyboard_check_pressed(vk_enter)) { room_goto_next(); }
 } 
 // Draw Defeat Text
 else if (global.north_state == "lose") {

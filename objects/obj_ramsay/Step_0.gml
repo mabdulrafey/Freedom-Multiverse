@@ -1,3 +1,8 @@
+// Tick down the dialogue timer
+if (dialogue_timer > 0) {
+    dialogue_timer -= 1;
+}
+
 // 1. Handle I-Frames and Death
 if (iframes > 0) {
     iframes -= 1;
@@ -32,6 +37,21 @@ if (instance_exists(obj_snow)) {
         
         x += _hspd;
         y += _vspd;
+		// --- RAMSAY FOOTSTEP AUDIO ---
+        if (_hspd != 0 || _vspd != 0) {
+            footstep_timer -= 1;
+            
+            if (footstep_timer <= 0) {
+                var _step = audio_play_sound(snd_footstep_snow, 1, false);
+                
+                // Make Ramsay's footsteps even deeper and heavier than the grunts!
+                audio_sound_pitch(_step, random_range(0.5, 0.7)); 
+                
+                footstep_timer = footstep_delay;
+            }
+        } else {
+            footstep_timer = 0;
+        }
         
         image_speed = 0.5; // Walking animation
         

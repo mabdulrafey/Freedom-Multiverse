@@ -45,6 +45,8 @@
     {"id":{"name":"obj_sword","path":"objects/obj_sword/obj_sword.yy",},},
     {"id":{"name":"MainMenu","path":"rooms/MainMenu/MainMenu.yy",},},
     {"id":{"name":"North","path":"rooms/North/North.yy",},},
+    {"id":{"name":"snd_enemy_footstep","path":"sounds/snd_enemy_footstep/snd_enemy_footstep.yy",},},
+    {"id":{"name":"snd_footstep_snow","path":"sounds/snd_footstep_snow/snd_footstep_snow.yy",},},
     {"id":{"name":"spr_enemy_down","path":"sprites/spr_enemy_down/spr_enemy_down.yy",},},
     {"id":{"name":"spr_enemy_left","path":"sprites/spr_enemy_left/spr_enemy_left.yy",},},
     {"id":{"name":"spr_enemy_right","path":"sprites/spr_enemy_right/spr_enemy_right.yy",},},

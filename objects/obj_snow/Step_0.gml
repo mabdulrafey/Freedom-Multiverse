@@ -25,6 +25,27 @@ var _vspd = (_down - _up) * move_speed;
 // 3. Apply movement to his X and Y coordinates
 x += _hspd;
 y += _vspd;
+// --- FOOTSTEP AUDIO LOGIC ---
+// Check if Jon is actually moving
+if (_hspd != 0 || _vspd != 0) {
+    footstep_timer -= 1;
+    
+    // When the timer hits zero, play the sound!
+    if (footstep_timer <= 0) {
+        
+        // This plays the sound. The "1" is priority, "false" means it won't loop forever.
+        var _step = audio_play_sound(snd_footstep_snow, 1, false);
+        
+        // PRO TIP: This slightly randomizes the pitch so it doesn't sound like a robot taking the exact same step every time!
+        audio_sound_pitch(_step, random_range(0.8, 1.2)); 
+        
+        // Reset the timer for the next step
+        footstep_timer = footstep_delay; 
+    }
+} else {
+    // If he stops moving, reset the timer to 0 so his first step next time is instant
+    footstep_timer = 0; 
+}
 
 // 4. Change Sprites, update "facing" direction, and control animation
 if (_hspd > 0) {

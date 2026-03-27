@@ -5,3 +5,5 @@ attack_cooldown = 60;
 facing = "down";       
 hp = 3;         
 iframes = 0;    
+footstep_timer = 0;     
+footstep_delay = 20;   
