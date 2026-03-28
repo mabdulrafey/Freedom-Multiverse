@@ -1,6 +1,6 @@
 // 1. Calculate the health percentage
 // Since we set Jon's max HP to 5, we divide his current hp by 5 and multiply by 100.
-var _hp_percent = (hp / 5) * 100;
+var _hp_percent = (hp / 20* 100);
 
 // 2. Draw the actual health bar on the screen
 // The numbers are the coordinates: (left_x, top_y, right_x, bottom_y)

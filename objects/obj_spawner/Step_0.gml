@@ -1,7 +1,16 @@
 // Only run the wave logic if Jon Snow is still alive and fighting
 if (global.north_state == "playing") {
     
-    if (state == "spawning") {
+    // --- TUTORIAL STATE ---
+    if (state == "tutorial") {
+        // Wait for the player to press ENTER to start the battle
+        if (keyboard_check_pressed(vk_enter)) {
+            state = "spawning"; 
+        }
+    }
+    
+    // --- SPAWNING STATE ---
+    else if (state == "spawning") {
         spawn_timer -= 1;
         
         if (spawn_timer <= 0) {
@@ -27,6 +36,8 @@ if (global.north_state == "playing") {
             }
         }
     } 
+    
+    // --- WAITING STATE ---
     // Wait for Jon Snow to clear the battlefield
     else if (state == "waiting") {
         
@@ -43,6 +54,8 @@ if (global.north_state == "playing") {
             }
         }
     } 
+    
+    // --- DELAY STATE ---
     // Give the player a 3-second breather before the next wave
     else if (state == "delay") {
         wave_delay -= 1;

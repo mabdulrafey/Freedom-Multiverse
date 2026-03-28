@@ -1,4 +1,10 @@
 if (iframes == 0) {
-    hp -= 1;       // Lose 1 health point
-    iframes = 30;  // Becomes invincible for 30 frames (half a second)
+    hp -= 1;       
+    iframes = 30;  
+    
+    // --- PLAY HURT SOUND ---
+    var _hurt = audio_play_sound(snd_enemy_hurt, 10, false);
+    
+    // Randomize the pitch widely so the soldiers sound different
+    audio_sound_pitch(_hurt, random_range(0.8, 1.2)); 
 }

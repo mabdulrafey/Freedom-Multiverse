@@ -51,7 +51,7 @@ if (_hspd != 0 || _vspd != 0) {
 if (_hspd > 0) {
     sprite_index = spr_jon_right; 
     facing = "right";
-    image_speed = 0.5; // Plays at 50% speed. Try 0.3 or 0.6 to fine-tune!
+    image_speed = 0.5; 
 } else if (_hspd < 0) {
     sprite_index = spr_jon_left;  
     facing = "left";
@@ -92,3 +92,6 @@ if (keyboard_check_pressed(ord("S"))) {
         _sword.image_angle = 90; 
     }
 }
+// Keep Jon Snow strictly inside the room dimensions
+x = clamp(x, 16, room_width - 16);
+y = clamp(y, 16, room_height - 16);
