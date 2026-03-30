@@ -1,110 +1,121 @@
-// 1. Get Player Input 
-var _key_right = keyboard_check(vk_right);
-var _key_left = keyboard_check(vk_left);
-var _key_jump = keyboard_check_pressed(vk_up);
-var _key_cast = keyboard_check_pressed(vk_space);
+// --- 1. GET PLAYER INPUT ---
+var key_left = keyboard_check(vk_left);
+var key_right = keyboard_check(vk_right);
+var key_jump = keyboard_check_pressed(vk_up);
+var key_cast = keyboard_check_pressed(ord("S"));
 
-// 2. Health and I-Frames Logic
-if (iframes > 0) {
-    iframes -= 1;
-    image_blend = c_red; 
-} else {
-    image_blend = c_white; 
+// Trigger the casting state
+if (key_cast && !is_casting) {
+    is_casting = true;
+    image_index = 0; // Force the animation to start at frame 0
+    // Notice: We removed the spell creation from here!
 }
 
-if (hp <= 0) {
-    instance_destroy(); 
+// --- 2. CALCULATE MOVEMENT ---
+var move = key_right - key_left;
+hsp = move * walk_spd;
+
+// Apply gravity
+vsp = vsp + grav;
+
+// If Harry is casting, let's make him stand still so he doesn't slide while shooting
+if (is_casting && place_meeting(x, y + 1, obj_wall)) {
+    hsp = 0; 
 }
 
-// 3. Calculate Horizontal Movement
-var _move = _key_right - _key_left; 
-hspd = _move * walk_speed;
-
-// 4. Apply Gravity & Jump Setup
-vspd += grv; 
-
-if (place_meeting(x, y + 1, obj_wall) && _key_jump) {
-    vspd = jump_speed;
+// --- 3. JUMPING ---
+if (place_meeting(x, y + 1, obj_wall)) && (key_jump) && (!is_casting) {
+    vsp = jump_spd;
 }
 
-// 5. Horizontal Collision 
-if (place_meeting(x + hspd, y, obj_wall)) {
-    while (!place_meeting(x + sign(hspd), y, obj_wall)) {
-        x += sign(hspd);
+// --- 4. HORIZONTAL COLLISION ---
+if (place_meeting(x + hsp, y, obj_wall)) {
+    // Inch forward pixel by pixel until perfectly flush with the wall
+    while (!place_meeting(x + sign(hsp), y, obj_wall)) {
+        x = x + sign(hsp);
     }
-    hspd = 0; 
+    hsp = 0; 
 }
-x += hspd; 
+x = x + hsp; 
 
-// 6. Vertical Collision 
-if (place_meeting(x, y + vspd, obj_wall)) {
-    while (!place_meeting(x, y + sign(vspd), obj_wall)) {
-        y += sign(vspd);
+// --- 5. VERTICAL COLLISION ---
+if (place_meeting(x, y + vsp, obj_wall)) {
+    // Inch downward/upward pixel by pixel until perfectly flush with the floor/ceiling
+    while (!place_meeting(x, y + sign(vsp), obj_wall)) {
+        y = y + sign(vsp);
     }
-    vspd = 0; 
+    vsp = 0; 
 }
-y += vspd; 
+y = y + vsp;
 
-// 7. Flip Sprite Direction
-if (hspd != 0) {
-    // This flips him left (-1) or right (1), but keeps his size perfectly at 0.5!
-    image_xscale = sign(hspd) * base_scale; 
-}
-
-// 8. Animation Engine
-var _on_ground = place_meeting(x, y + 1, obj_wall); 
-
-// A. Trigger the Cast Animation
-if (_key_cast && sprite_index != spr_harry_cast) {
+// --- 6. ANIMATION HANDLING ---
+if (is_casting) {
     sprite_index = spr_harry_cast;
-    image_index = 0;
-}
-
-// B. Prioritize Cast Animation
-if (sprite_index == spr_harry_cast) {
-    image_speed = 0.2; // Nice and slow so we can see the wand movement
     
-    // THE FIX: Wait until the animation has fully played the final frame
-    if (image_index + image_speed >= image_number) {
-        sprite_index = spr_harry_idle; 
+    // Slow down this specific 2-frame animation so the eye can catch it
+    // Tweak this number (e.g., 0.10 to 0.20) until the timing feels perfect
+    image_speed = 0.50; 
+    
+    // Check if the animation has reached its final frame
+    if (image_index >= image_number - 1) {
+        
+        // --- NEW: CREATE AND FIRE THE SPELL AT THE END OF ANIMATION ---
+        var _dir = sign(image_xscale);
+        if (_dir == 0) _dir = 1; 
+        
+        var _wand_x = x + (30 * _dir);
+        var _wand_y = y - 100; 
+        
+        var _spell = instance_create_layer(_wand_x, _wand_y, "Instances", obj_spell);
+        _spell.hspeed = 15 * _dir;
+        _spell.image_xscale = _dir;
+        
+        // Unlock the state so he can move again
+        is_casting = false; 
     }
-} 
-// C. Normal Movement Animations 
-else {
-    // --- AIR ANIMATIONS ---
-    if (!_on_ground) { 
-        
-        if (vspd < 0) { // Moving UP
-            if (sprite_index != spr_harry_jump) {
-                sprite_index = spr_harry_jump;
-                image_index = 0; 
-            }
-        } else {        // Moving DOWN
-            if (sprite_index != spr_harry_fall) {
-                sprite_index = spr_harry_fall;
-                image_index = 0; 
-            }
-        }
-        
-        // Freeze on the final frame in the air
-        if (image_index >= image_number - 1) {
-            image_speed = 0;                
-            image_index = image_number - 1; 
+} else {
+    // Reset animation speed back to normal for running and jumping
+    image_speed = 0.25; 
+    
+    // Normal animations when NOT casting
+    if (!place_meeting(x, y + 1, obj_wall)) {
+        if (vsp < 0) {
+            sprite_index = spr_harry_jump; 
         } else {
-            image_speed = 0.5;              
+            sprite_index = spr_harry_fall; 
         }
-    } 
-    // --- GROUND ANIMATIONS ---
-    else { 
-        image_speed = 0.5; 
-        
-        if (hspd == 0) {
-            sprite_index = spr_harry_idle;  
+    } else {
+        if (hsp == 0) {
+            sprite_index = spr_harry_idle;
         } else {
-            sprite_index = spr_harry_right; 
+            sprite_index = spr_harry_right;
         }
     }
 }
 
-// 9. Keep him strictly inside the room edges
-x = clamp(x, 16, room_width - 16);
+// --- 7. FACING DIRECTION ---
+if (hsp != 0 && !is_casting) {
+    image_xscale = sign(hsp) * scale_factor; 
+}
+// --- 8. HEALTH & DAMAGE HANDLING ---
+if (is_invincible) {
+    invincibility_timer -= 1;
+    
+    // Create a flashing effect by toggling image alpha (transparency)
+    if (invincibility_timer % 10 < 5) {
+        image_alpha = 0.5; 
+    } else {
+        image_alpha = 1.0;
+    }
+    
+    // End invincibility
+    if (invincibility_timer <= 0) {
+        is_invincible = false;
+        image_alpha = 1.0; // Reset to fully visible
+    }
+}
+
+// Check for Death
+if (global.hogwarts_state.harry_hp <= 0) {
+    game_restart(); // Later, we can change this to a "Game Over" room
+}
