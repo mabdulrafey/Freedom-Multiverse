@@ -14,5 +14,5 @@ if (string_count("skip", string_lower(keyboard_string)) > 0) {
 // Type "reset" anywhere to instantly restart the entire game
 if (string_count("reset", string_lower(keyboard_string)) > 0) {
     keyboard_string = ""; 
-    game_restart();
+    room_restart();
 }

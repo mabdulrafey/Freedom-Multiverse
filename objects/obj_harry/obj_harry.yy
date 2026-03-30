@@ -34,9 +34,6 @@
     "name":"spr_harry_idle",
     "path":"sprites/spr_harry_idle/spr_harry_idle.yy",
   },
-  "spriteMaskId":{
-    "name":"spr_harry_idle",
-    "path":"sprites/spr_harry_idle/spr_harry_idle.yy",
-  },
+  "spriteMaskId":null,
   "visible":true,
 }

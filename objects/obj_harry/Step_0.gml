@@ -1,8 +1,8 @@
-// 1. Get Player Input
+// 1. Get Player Input 
 var _key_right = keyboard_check(vk_right);
 var _key_left = keyboard_check(vk_left);
 var _key_jump = keyboard_check_pressed(vk_up);
-var _key_shoot = keyboard_check_pressed(vk_space); // The attack button
+var _key_cast = keyboard_check_pressed(vk_space);
 
 // 2. Health and I-Frames Logic
 if (iframes > 0) {
@@ -20,80 +20,91 @@ if (hp <= 0) {
 var _move = _key_right - _key_left; 
 hspd = _move * walk_speed;
 
-// 4. Apply Gravity
+// 4. Apply Gravity & Jump Setup
 vspd += grv; 
 
-// 5. Jump Logic
-if (place_meeting(x, y + 1, obj_wall)) && (_key_jump) {
+if (place_meeting(x, y + 1, obj_wall) && _key_jump) {
     vspd = jump_speed;
 }
 
-// 6. Horizontal Collision
+// 5. Horizontal Collision 
 if (place_meeting(x + hspd, y, obj_wall)) {
     while (!place_meeting(x + sign(hspd), y, obj_wall)) {
-        x = x + sign(hspd);
+        x += sign(hspd);
     }
     hspd = 0; 
 }
 x += hspd; 
 
-// 7. Vertical Collision 
+// 6. Vertical Collision 
 if (place_meeting(x, y + vspd, obj_wall)) {
     while (!place_meeting(x, y + sign(vspd), obj_wall)) {
-        y = y + sign(vspd);
+        y += sign(vspd);
     }
     vspd = 0; 
 }
 y += vspd; 
 
-// 8. Shooting Logic
-if (shoot_cooldown > 0) {
-    shoot_cooldown -= 1;
-} else {
-    can_shoot = true;
-    is_shooting = false; // Stop playing the casting animation
-}
-
-if (_key_shoot && can_shoot) {
-    is_shooting = true;
-    can_shoot = false;
-    shoot_cooldown = 25; // How long before he can shoot again
-    
-    // Create the spell directly in front of his wand
-    var _spell = instance_create_layer(x + (16 * image_xscale), y - 20, "Instances", obj_spell);
-    
-    // Make the spell fly in the direction Harry is facing!
-    _spell.hspeed = 8 * image_xscale; 
-    _spell.image_xscale = image_xscale; // Flip the spell sprite to match
-}
-
-// 9. ANIMATION HIERARCHY
-if (is_shooting) {
-    // Priority 1: If shooting, override everything else to show the wand cast
-    sprite_index = spr_harry_cast;
-    image_speed = 0.5;
-} else if (!place_meeting(x, y + 1, obj_wall)) {
-    // Priority 2: If we are not touching the floor, play air animations
-    if (vspd < 0) {
-        sprite_index = spr_harry_jump;
-    } else {
-        sprite_index = spr_harry_fall;
-    }
-} else {
-    // Priority 3: We are on the ground, so run or stand still
-    if (hspd == 0) {
-        sprite_index = spr_harry_idle;
-        image_speed = 0.05; // EXTREMELY slow idle animation!
-    } else {
-        sprite_index = spr_harry_right; 
-        image_speed = 0.5; // Normal running speed
-    }
-}
-
-// Flip Harry's sprite left or right based on movement direction
+// 7. Flip Sprite Direction
 if (hspd != 0) {
-    image_xscale = sign(hspd); 
+    // This flips him left (-1) or right (1), but keeps his size perfectly at 0.5!
+    image_xscale = sign(hspd) * base_scale; 
 }
 
-// Keep him inside the room
+// 8. Animation Engine
+var _on_ground = place_meeting(x, y + 1, obj_wall); 
+
+// A. Trigger the Cast Animation
+if (_key_cast && sprite_index != spr_harry_cast) {
+    sprite_index = spr_harry_cast;
+    image_index = 0;
+}
+
+// B. Prioritize Cast Animation
+if (sprite_index == spr_harry_cast) {
+    image_speed = 0.2; // Nice and slow so we can see the wand movement
+    
+    // THE FIX: Wait until the animation has fully played the final frame
+    if (image_index + image_speed >= image_number) {
+        sprite_index = spr_harry_idle; 
+    }
+} 
+// C. Normal Movement Animations 
+else {
+    // --- AIR ANIMATIONS ---
+    if (!_on_ground) { 
+        
+        if (vspd < 0) { // Moving UP
+            if (sprite_index != spr_harry_jump) {
+                sprite_index = spr_harry_jump;
+                image_index = 0; 
+            }
+        } else {        // Moving DOWN
+            if (sprite_index != spr_harry_fall) {
+                sprite_index = spr_harry_fall;
+                image_index = 0; 
+            }
+        }
+        
+        // Freeze on the final frame in the air
+        if (image_index >= image_number - 1) {
+            image_speed = 0;                
+            image_index = image_number - 1; 
+        } else {
+            image_speed = 0.5;              
+        }
+    } 
+    // --- GROUND ANIMATIONS ---
+    else { 
+        image_speed = 0.5; 
+        
+        if (hspd == 0) {
+            sprite_index = spr_harry_idle;  
+        } else {
+            sprite_index = spr_harry_right; 
+        }
+    }
+}
+
+// 9. Keep him strictly inside the room edges
 x = clamp(x, 16, room_width - 16);
