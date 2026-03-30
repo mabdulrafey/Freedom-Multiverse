@@ -117,5 +117,5 @@ if (is_invincible) {
 
 // Check for Death
 if (global.hogwarts_state.harry_hp <= 0) {
-    game_restart(); // Later, we can change this to a "Game Over" room
+    room_restart(); 
 }

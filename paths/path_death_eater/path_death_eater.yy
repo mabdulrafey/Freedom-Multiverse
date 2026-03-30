@@ -1,0 +1,23 @@
+{
+  "$GMPath":"",
+  "%Name":"path_death_eater",
+  "closed":true,
+  "kind":1,
+  "name":"path_death_eater",
+  "parent":{
+    "name":"Paths",
+    "path":"folders/Paths.yy",
+  },
+  "points":[
+    {"speed":100.0,"x":833.187,"y":422.83017,},
+    {"speed":100.0,"x":794.60034,"y":81.61232,},
+    {"speed":100.0,"x":1184.0,"y":96.0,},
+    {"speed":100.0,"x":1513.53,"y":103.951935,},
+    {"speed":100.0,"x":1511.4683,"y":408.5832,},
+    {"speed":100.0,"x":1184.0,"y":352.0,},
+    {"speed":100.0,"x":1184.5283,"y":658.38074,},
+  ],
+  "precision":4,
+  "resourceType":"GMPath",
+  "resourceVersion":"2.0",
+}

@@ -1,64 +1,98 @@
-// Center the text alignment
+// 1. Center the text alignment
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 
-// Find the center of the screen (GUI layer)
-var _center_x = display_get_gui_width() / 2;
-var _center_y = display_get_gui_height() / 2;
-// Draw Tutorial Screen
+// 2. Find screen center & Define Colors
+var _cx = display_get_gui_width() / 2;
+var _cy = display_get_gui_height() / 2;
+
+var _col_gold = make_color_rgb(255, 215, 0);
+var _col_text = make_color_rgb(220, 220, 220);
+var _col_red = make_color_rgb(220, 50, 50);
+
+
 if (global.north_state == "playing" && state == "tutorial") {
     
-    // 1. Draw a see-through dark background so the text pops
-    draw_set_alpha(0.6);
+    // A. Darken the background to focus the player
     draw_set_color(c_black);
+    draw_set_alpha(0.7);
     draw_rectangle(0, 0, display_get_gui_width(), display_get_gui_height(), false);
-    draw_set_alpha(1.0); // Reset alpha
+    draw_set_alpha(1); // Reset alpha for text
     
-    // 2. Draw the big title
+    // B. Draw Title (With a black drop-shadow for a 3D pop effect)
     draw_set_font(fnt_big_bold);
-    draw_set_color(c_white);
-    draw_text(_center_x, _center_y - 80, "EARN THE FREEDOM BY DEFENDING NORTH");
+    draw_set_color(c_black);
+    draw_text(_cx + 2, _cy - 128, "EARN YOUR FREEDOM"); // Shadow
+    draw_set_color(_col_gold);
+    draw_text(_cx, _cy - 130, "EARN YOUR FREEDOM");   // Real text
     
-    // 3. Draw the controls (Change these if your buttons are different!)
+    // C. Draw the Story/Mission Objective
     draw_set_font(-1);
-    draw_text(_center_x, _center_y - 10, "Use  Arrow Keys  to Move");
-    draw_text(_center_x, _center_y + 20, "Press S key to Swing Sword");
+    draw_set_color(c_white);
+    draw_text(_cx, _cy - 75, "You have to fight 5 waves of very strong and capable soldiers.");
+    draw_text(_cx, _cy - 50, "In the last wave, you must fight their commander Ramsay to earn your freedom.");
     
-    // 4. Draw the start prompt
-    draw_set_color(c_yellow);
-    draw_text(_center_x, _center_y + 80, "Press ENTER to Start Wave 1");
+    // D. Draw Controls (Cleanly formatted)
+    draw_set_color(_col_text);
+    draw_text(_cx, _cy + 10, "Movement: Arrow Keys (Up, Left, Right)");
+    draw_text(_cx, _cy + 35, "Attack: Press 'S' to Swing Sword");
+    
+    // E. Draw a subtle divider line
+    draw_set_color(c_dkgray);
+    draw_line(_cx - 150, _cy + 75, _cx + 150, _cy + 75);
+    
+    // F. Draw the start prompt
+    draw_set_color(c_white);
+    draw_text(_cx, _cy + 110, "[ PRESS ENTER TO START WAVE 1 ]");
 }
-// Draw Victory Text
+
+
 if (global.north_state == "win") {
-    // 1. Set the big bold font for the main message
+    // Background Dimmer
+    draw_set_color(c_black);
+    draw_set_alpha(0.6);
+    draw_rectangle(0, 0, display_get_gui_width(), display_get_gui_height(), false);
+    draw_set_alpha(1);
+
+    // Title with Drop Shadow
     draw_set_font(fnt_big_bold); 
-    draw_set_color(c_yellow);
-    draw_text(_center_x, _center_y, "You have earned your freedom");
+    draw_set_color(c_black);
+    draw_text(_cx + 2, _cy + 2, "YOU HAVE EARNED YOUR FREEDOM");
+    draw_set_color(_col_gold);
+    draw_text(_cx, _cy, "YOU HAVE EARNED YOUR FREEDOM");
     
-    // 2. Reset back to the default small font (-1) for the instructions
+    // Instructions
     draw_set_font(-1); 
     draw_set_color(c_white);
-    // Increased the +30 to +50 so it sits nicely under the giant text
-    draw_text(_center_x, _center_y + 50, "Press ENTER to go to next Universe"); 
+    draw_text(_cx, _cy + 50, "[ Press ENTER to go to next Universe ]"); 
     
     if (keyboard_check_pressed(vk_enter)) { room_goto_next(); }
 } 
-// Draw Defeat Text
+
+
 else if (global.north_state == "lose") {
-    // 1. Set the big bold font for the main message
+    // Background Dimmer (Slightly darker for defeat)
+    draw_set_color(c_black);
+    draw_set_alpha(0.8);
+    draw_rectangle(0, 0, display_get_gui_width(), display_get_gui_height(), false);
+    draw_set_alpha(1);
+
+    // Title with Drop Shadow
     draw_set_font(fnt_big_bold); 
-    draw_set_color(c_red);
-    draw_text(_center_x, _center_y, "You didn't fight hard enough to earn your freedom");
+    draw_set_color(c_black);
+    draw_text(_cx + 2, _cy + 2, "YOU DIDN'T FIGHT HARD ENOUGH");
+    draw_set_color(_col_red);
+    draw_text(_cx, _cy, "YOU DIDN'T FIGHT HARD ENOUGH");
     
-    // 2. Reset back to the default small font (-1) for the instructions
+    // Instructions
     draw_set_font(-1); 
-    draw_set_color(c_white);
-    draw_text(_center_x, _center_y + 50, "Press ENTER to try again");
+    draw_set_color(c_gray);
+    draw_text(_cx, _cy + 50, "[ Press ENTER to try again ]");
     
     if (keyboard_check_pressed(vk_enter)) { room_restart(); }
 }
 
-// Reset the text alignment AND font back to normal so Jon's health bar doesn't break!
+
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_font(-1);
