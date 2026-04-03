@@ -13,9 +13,11 @@ scale_factor = 0.5;
 image_xscale = scale_factor;
 image_yscale = scale_factor;
 
-// Fix the animation speed! 
-// 0.25 means it advances 1/4th of a frame per game step (approx 15 FPS)
 image_speed = 0.25; 
 
 // State management
 is_casting = false;
+
+// --- AUDIO TIMERS ---
+step_timer = 0;       
+step_delay = 15;      

@@ -14,6 +14,7 @@ if (is_locked) {
 if (!is_locked) {
     // Manually check if Harry is touching the door
     if (place_meeting(x, y, obj_harry)) {
+		audio_play_sound(snd_item_collect, 1, false);
         
         // Listen specifically for the Right Arrow key, just as you requested
         var _key_enter = keyboard_check_pressed(vk_right);

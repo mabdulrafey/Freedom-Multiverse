@@ -44,3 +44,26 @@ if (global.hogwarts_state.tutorial_active == true) {
     var _ui_text = "Items: " + string(_collected) + "/" + string(_total) + " | Lives: " + string(_hp);
     draw_text(50, 50, _ui_text);
 }
+
+// --- VICTORY SCREEN ---
+if (global.hogwarts_state.victory_achieved == true) {
+    
+    draw_set_alpha(1.0);
+    draw_set_color(c_yellow);
+    draw_set_halign(fa_center);
+    draw_set_valign(fa_middle);
+    
+    // Find the center of the screen
+    var _cx = display_get_gui_width() / 2;
+    var _cy = display_get_gui_height() / 2;
+    
+    // 3. Draw your Victory Text
+    draw_text(_cx, _cy - 20, "You have earned your freedom!");
+    
+    draw_set_color(c_white);
+    draw_text(_cx, _cy + 20, "Go to next universe through the door.");
+    
+    // 4. Reset alignment so we don't break other text
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+}

@@ -3,6 +3,7 @@ if (global.hogwarts_state.tutorial_active == true) {
     exit; 
 }
 // Increase the counter inside the struct
+audio_play_sound(snd_item_collect, 1, false);
 global.hogwarts_state.items_collected += 1;
 
 // Destroy the item so it disappears from the room

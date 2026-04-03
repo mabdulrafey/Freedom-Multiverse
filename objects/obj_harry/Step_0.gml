@@ -119,3 +119,26 @@ if (is_invincible) {
 if (global.hogwarts_state.harry_hp <= 0) {
     room_restart(); 
 }
+
+if (hsp != 0 && place_meeting(x, y + 1, obj_wall)) {
+    
+    // 2. Check if our timer has counted down to 0
+    if (step_timer <= 0) {
+        
+        // Play the sound and randomize the pitch
+        var _step = audio_play_sound(snd_harry_step, 1, false);
+        audio_sound_pitch(_step, random_range(0.8, 1.2));
+        
+        // Reset the timer back to 15 frames
+        step_timer = step_delay; 
+        
+    } else {
+        // If the timer isn't at 0 yet, count down by 1
+        step_timer -= 1;
+    }
+    
+} else {
+    // If Harry stops moving, or if he jumps in the air, instantly reset the timer.
+    // This ensures that his very first step when he lands is immediate.
+    step_timer = 0;
+}
