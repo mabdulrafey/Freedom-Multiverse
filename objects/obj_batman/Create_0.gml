@@ -20,7 +20,8 @@ enum STATE {
     KICK,
     HIT,
     JUMP_PUNCH, 
-    JUMP_KICK   
+    JUMP_KICK,
+	DEAD
 }
 
 // Start in the idle state

@@ -50,6 +50,11 @@ if (instance_exists(obj_batman) && (state == STATE.IDLE || state == STATE.FORWAR
         }
     }
 }
+// --- DEATH CHECK ---
+if (hp <= 0 && state != STATE.DEAD) {
+    state = STATE.DEAD;
+    hsp = 0; // Stop moving
+}
 
 // --- 3. STATE MACHINE LOGIC (Handling Sprites & Locks) ---
 switch (state) {
@@ -99,6 +104,20 @@ switch (state) {
             hsp -= sign(hsp) * 0.5; 
         }
         
+        break;
+		
+	case STATE.DEAD:
+        sprite_index = spr_hit;
+        
+        // Stop the animation on the very last frame so they don't loop
+        if (floor(image_index) >= image_number - 1) {
+            image_speed = 0;
+        }
+        
+        // Apply friction so they slide to a halt if they died from a heavy hit
+        if (abs(hsp) > 0) {
+            hsp -= sign(hsp) * 0.5; 
+        }
         break;
 }
 

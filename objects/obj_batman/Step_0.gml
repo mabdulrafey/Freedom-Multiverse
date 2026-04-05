@@ -16,6 +16,11 @@ if (!_on_ground) {
     vsp = 0;
     y = _floor_y; 
 }
+// --- DEATH CHECK ---
+if (hp <= 0 && state != STATE.DEAD) {
+    state = STATE.DEAD;
+    hsp = 0; // Stop moving
+}
 
 // --- 3. STATE MACHINE LOGIC ---
 switch (state) {
@@ -73,7 +78,7 @@ switch (state) {
         if (floor(image_index) == 1 && !attack_spawned) {
             var _hitbox = instance_create_layer(x + (70 * facing), y - 100, "Instances", obj_hitbox);
             _hitbox.creator = id;
-            _hitbox.damage = 10;
+            _hitbox.damage = 4;
             attack_spawned = true; 
         }
         break;
@@ -85,7 +90,7 @@ switch (state) {
         if (floor(image_index) == 2 && !attack_spawned) {
             var _hitbox = instance_create_layer(x + (70 * facing), y - 100, "Instances", obj_hitbox);
             _hitbox.creator = id;
-            _hitbox.damage = 15;
+            _hitbox.damage = 6;
             attack_spawned = true;
         }
         break;
@@ -129,6 +134,20 @@ switch (state) {
             hsp -= sign(hsp) * 0.5; 
         }
         
+        break;
+		
+	case STATE.DEAD:
+        sprite_index = spr_hit;
+        
+        // Stop the animation on the very last frame so they don't loop
+        if (floor(image_index) >= image_number - 1) {
+            image_speed = 0;
+        }
+        
+        // Apply friction so they slide to a halt if they died from a heavy hit
+        if (abs(hsp) > 0) {
+            hsp -= sign(hsp) * 0.5; 
+        }
         break;
 }
 
