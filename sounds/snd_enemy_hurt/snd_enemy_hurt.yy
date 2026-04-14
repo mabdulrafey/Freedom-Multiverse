@@ -10,7 +10,7 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.65401363,
+  "duration":0.7818594,
   "exportDir":"",
   "name":"snd_enemy_hurt",
   "parent":{

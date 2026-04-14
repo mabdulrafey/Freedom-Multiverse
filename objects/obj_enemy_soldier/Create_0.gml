@@ -1,0 +1,10 @@
+move_speed = 2;        
+attack_range = 130;     
+can_attack = true;     
+attack_cooldown = 60;  
+facing = "down";       
+hp = 3;         
+iframes = 0;    
+footstep_timer = 0;     
+footstep_delay = 20;  
+image_speed = 0.25;

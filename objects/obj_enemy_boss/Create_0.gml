@@ -1,0 +1,11 @@
+hp = 5;                
+iframes = 0;           
+move_speed = 1;        
+attack_range = 700;   
+can_attack = true;     
+attack_cooldown = 120;  
+facing = "down";
+dialogue_timer = 240; 
+footstep_timer = 0;
+footstep_delay = 45;
+image_speed = 0.25;

@@ -2,7 +2,6 @@
   "$GMObject":"",
   "%Name":"obj_door",
   "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
@@ -31,8 +30,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_door_closed",
-    "path":"sprites/spr_door_closed/spr_door_closed.yy",
+    "name":"spr_door_close",
+    "path":"sprites/spr_door_close/spr_door_close.yy",
   },
   "spriteMaskId":null,
   "visible":true,

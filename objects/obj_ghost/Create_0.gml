@@ -1,0 +1,7 @@
+hp = 5; 
+fly_spd = 2;
+aggro_range = 400;
+state = "patrol";
+image_speed = 0.15; 
+
+path_start(path_ghost, fly_spd, path_action_reverse, true);
