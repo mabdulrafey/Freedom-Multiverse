@@ -55,18 +55,22 @@ if (instance_exists(obj_soldier)) {
             if (_hspd > 0) {
                 sprite_index = spr_enemy_soldier_right; 
                 facing = "right";
+				image_speed = 0.25; 
             } else {
                 sprite_index = spr_enemy_soldier_left;  
                 facing = "left";
+				image_speed = 0.25; 
             }
         } else { 
             
             if (_vspd > 0) {
                 sprite_index = spr_enemy_soldier_down;  
                 facing = "down";
+				image_speed = 0.25; 
             } else {
                 sprite_index = spr_enemy_soldier_up;    
                 facing = "up";
+				image_speed = 0.25; 
             }
         }
     } 

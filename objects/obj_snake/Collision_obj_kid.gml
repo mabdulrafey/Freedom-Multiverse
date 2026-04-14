@@ -1,4 +1,6 @@
 if (global.magicland_tutorial) exit;
-global.magicland_lives -= 1;
-other.x = other.spawn_x;
-other.y = other.spawn_y;
+if (!other.invincible) {
+    global.magicland_lives -= 1;
+    other.invincible = true;
+    other.invincible_timer = 90; 
+}

@@ -24,3 +24,9 @@ if (place_meeting(x, y+vsp, obj_wall)) {
 y += vsp;
 
 image_xscale = dir;
+if (flash_timer > 0) {
+    flash_timer -= 1;
+    image_blend = c_red; 
+} else {
+    image_blend = c_white; 
+}

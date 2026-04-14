@@ -47,3 +47,20 @@ if (key_cast && !is_casting) {
     var inst = instance_create_layer(x + (80 * face), y - 80, "Instances", obj_spell);
     inst.hspeed = 15 * face;
 }
+
+if (invincible) {
+    invincible_timer -= 1;
+    
+    // Make the sprite blink by toggling transparency
+    if (invincible_timer % 10 < 5) {
+        image_alpha = 0.3; 
+    } else {
+        image_alpha = 1;
+    }
+    
+    // Turn off invincibility when time is up
+    if (invincible_timer <= 0) {
+        invincible = false;
+        image_alpha = 1; // Make sure he is fully solid again
+    }
+}

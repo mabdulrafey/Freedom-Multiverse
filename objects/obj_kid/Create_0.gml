@@ -1,10 +1,12 @@
 hsp = 0;
 vsp = 0;
-grv = 0.3;
+grv = 0.33;
 walksp = 6;
 jumpsp = -12;
 face = 1;
 is_casting = false;
 spawn_x = x;
 spawn_y = y;
-image_speed = 0.25; 
+image_speed = 0.15;
+invincible = false;
+invincible_timer = 0;

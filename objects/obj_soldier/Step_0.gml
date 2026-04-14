@@ -41,19 +41,19 @@ if (_hspd != 0 || _vspd != 0) {
 if (_hspd > 0) {
     sprite_index = spr_soldier_right; 
     facing = "right";
-    image_speed = 0.5; 
+    image_speed = 0.25; 
 } else if (_hspd < 0) {
     sprite_index = spr_soldier_left;  
     facing = "left";
-    image_speed = 0.5;
+    image_speed = 0.25; 
 } else if (_vspd > 0) {
     sprite_index = spr_soldier_down;  
     facing = "down";
-    image_speed = 0.5;
+    image_speed = 0.25; 
 } else if (_vspd < 0) {
     sprite_index = spr_soldier_up;    
     facing = "up";
-    image_speed = 0.5;
+    image_speed = 0.25; 
 } else {
     image_speed = 0; 
     image_index = 0; 

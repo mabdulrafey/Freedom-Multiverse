@@ -8,4 +8,4 @@ facing = "down";
 dialogue_timer = 240; 
 footstep_timer = 0;
 footstep_delay = 45;
-image_speed = 0.25;
+image_speed = 0.10;

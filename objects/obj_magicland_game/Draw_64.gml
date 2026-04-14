@@ -32,22 +32,21 @@ if (global.magicland_tutorial) {
     draw_set_color(c_white);
     draw_text(50, 50, "Lives: " + string(global.magicland_lives));
     draw_text(50, 80, "Scrolls: " + string(global.magicland_scrolls) + " / 5");
-    
+}
 
     
-    if (global.magicland_scrolls >= 5) {
+if (global.magicland_scrolls >= 5) {
         var _center_x = display_get_gui_width() / 2; 
         
-        draw_set_halign(fa_center);
-        draw_set_color(make_color_rgb(255, 215, 0)); 
-        draw_set_font(fnt_big_bold);
-
-        draw_text(_center_x, 150, "You have earned your freedom!");
+        draw_set_halign(fa_center); 
         
-        draw_set_font(-1);
+        draw_set_color(make_color_rgb(255, 215, 0)); 
+        draw_set_font(fnt_big_bold); 
+        draw_text(_center_x, 500, "You have earned your freedom!");
+        
+        draw_set_font(-1); 
         draw_set_color(c_white);
-        draw_text(_center_x, 200, "Wall is removed! GO TO NEXT UNIVERSE");
+        draw_text(_center_x, 600, "Wall is removed! GO TO NEXT UNIVERSE");
         
         draw_set_halign(fa_left); 
-    }
-}
+  }

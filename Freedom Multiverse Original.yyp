@@ -46,6 +46,7 @@
     {"id":{"name":"obj_game_manager","path":"objects/obj_game_manager/obj_game_manager.yy",},},
     {"id":{"name":"obj_ghost","path":"objects/obj_ghost/obj_ghost.yy",},},
     {"id":{"name":"obj_kid","path":"objects/obj_kid/obj_kid.yy",},},
+    {"id":{"name":"obj_magic_camera","path":"objects/obj_magic_camera/obj_magic_camera.yy",},},
     {"id":{"name":"obj_magicland_game","path":"objects/obj_magicland_game/obj_magicland_game.yy",},},
     {"id":{"name":"obj_menu_manager","path":"objects/obj_menu_manager/obj_menu_manager.yy",},},
     {"id":{"name":"obj_scroll","path":"objects/obj_scroll/obj_scroll.yy",},},

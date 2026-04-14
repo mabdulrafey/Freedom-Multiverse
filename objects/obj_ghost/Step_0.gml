@@ -25,3 +25,9 @@ if (instance_exists(obj_kid)) {
         image_xscale = sign(x - xprevious);
     }
 }
+if (flash_timer > 0) {
+    flash_timer -= 1;
+    image_blend = c_red; 
+} else {
+    image_blend = c_white; 
+}

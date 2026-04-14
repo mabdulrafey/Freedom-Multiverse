@@ -4,3 +4,4 @@ vsp = 0;
 grv = 0.4;
 dir = 1;
 image_speed = 0.25; 
+flash_timer = 0;

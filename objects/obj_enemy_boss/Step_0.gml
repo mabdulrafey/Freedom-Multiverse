@@ -52,11 +52,11 @@ if (instance_exists(obj_soldier)) {
         image_speed = 0.5; 
 
         if (abs(_hspd) > abs(_vspd)) { 
-            if (_hspd > 0) { sprite_index = spr_enemy_boss_right; facing = "right"; } 
-            else { sprite_index = spr_enemy_boss_left; facing = "left"; }
+            if (_hspd > 0) { sprite_index = spr_enemy_boss_right; facing = "right"; image_speed = 0.25; } 
+            else { sprite_index = spr_enemy_boss_left; facing = "left";image_speed = 0.25;  }
         } else { 
-            if (_vspd > 0) { sprite_index = spr_enemy_boss_down; facing = "down"; } 
-            else { sprite_index = spr_enemy_boss_up; facing = "up"; }
+            if (_vspd > 0) { sprite_index = spr_enemy_boss_down; facing = "down";image_speed = 0.25;  } 
+            else { sprite_index = spr_enemy_boss_up; facing = "up"; image_speed = 0.25; }
         }
     } 
     else {
