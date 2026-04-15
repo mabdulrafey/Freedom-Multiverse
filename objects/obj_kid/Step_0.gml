@@ -38,12 +38,14 @@ if (!is_casting) {
 if (hsp > 0) face = 1;
 if (hsp < 0) face = -1;
 
-image_xscale = face;
+image_xscale = scale_size * face;
 
 if (key_cast && !is_casting) {
     is_casting = true;
     sprite_index = spr_kid_cast;
     image_index = 0;
+	var _spell_snd = audio_play_sound(snd_spell, 10, false);
+    audio_sound_pitch(_spell_snd, random_range(0.9, 1.1));
     var inst = instance_create_layer(x + (80 * face), y - 80, "Instances", obj_spell);
     inst.hspeed = 15 * face;
 }
@@ -51,16 +53,27 @@ if (key_cast && !is_casting) {
 if (invincible) {
     invincible_timer -= 1;
     
-    // Make the sprite blink by toggling transparency
+    
     if (invincible_timer % 10 < 5) {
         image_alpha = 0.3; 
     } else {
         image_alpha = 1;
     }
     
-    // Turn off invincibility when time is up
+   
     if (invincible_timer <= 0) {
         invincible = false;
-        image_alpha = 1; // Make sure he is fully solid again
+        image_alpha = 1; 
     }
+}
+if (hsp != 0 && place_meeting(x, y + 1, obj_wall)) {
+    step_timer -= 1;
+    
+    if (step_timer <= 0) {
+        var _step = audio_play_sound(snd_kid_step, 1, false);
+        audio_sound_pitch(_step, random_range(0.8, 1.2)); 
+        step_timer = 15; 
+    }
+} else {
+    step_timer = 0; 
 }

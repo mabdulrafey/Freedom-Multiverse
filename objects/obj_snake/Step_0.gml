@@ -30,3 +30,7 @@ if (flash_timer > 0) {
 } else {
     image_blend = c_white; 
 }
+
+if (!global.magicland_tutorial && my_sound == noone) {
+    my_sound = audio_play_sound(snd_snake, 7, true); 
+}

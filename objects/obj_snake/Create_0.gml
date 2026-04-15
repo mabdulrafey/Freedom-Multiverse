@@ -5,3 +5,5 @@ grv = 0.4;
 dir = 1;
 image_speed = 0.25; 
 flash_timer = 0;
+my_sound = noone;
+step_timer = 0;

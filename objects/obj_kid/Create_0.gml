@@ -10,3 +10,7 @@ spawn_y = y;
 image_speed = 0.15;
 invincible = false;
 invincible_timer = 0;
+scale_size = 0.4; 
+image_xscale = scale_size;
+image_yscale = scale_size;
+step_timer = 0;
