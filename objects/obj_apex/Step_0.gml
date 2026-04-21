@@ -1,9 +1,13 @@
-if (global.fictionland_state != "playing" && global.fictionland_state != "tutorial") exit;
+if (global.fictionland_state != "playing" && global.fictionland_state != "tutorial" && global.fictionland_state != "gameover") exit;
 
-if (hp <= 0 && state != "hurt") {
-    global.fictionland_state = "gameover";
-    state = "hurt";
-    image_index = 0;
+if (hp <= 0) {
+    if (global.fictionland_state == "playing") {
+        global.fictionland_state = "gameover";
+    }
+    if (state != "hurt") {
+        state = "hurt";
+        image_index = 0;
+    }
 }
 
 
@@ -81,9 +85,21 @@ if (place_meeting(x + hsp, y, obj_void)) {
     }
 }
 
+
 x += hsp;
 x = clamp(x, 100, 1820);
 
+
+if (global.fictionland_state == "gameover" && hp > 0) {
+    hsp = 0; 
+    if (state == "attack_kick" || state == "attack_punch") {
+        if (image_index >= image_number - 1) {
+            state = "idle";
+        }
+    } else {
+        state = "idle";
+    }
+}
 
 switch(state) {
     case "idle": sprite_index = spr_apex_idle; break;
@@ -95,3 +111,4 @@ switch(state) {
     case "hurt": sprite_index = spr_apex_hurt; break;
     case "block": sprite_index = spr_apex_block; break;
 }
+

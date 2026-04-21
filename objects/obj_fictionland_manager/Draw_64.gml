@@ -1,16 +1,20 @@
 draw_set_halign(fa_center);
+var _col_gold = make_color_rgb(255, 215, 0);
 
 if (global.fictionland_state == "tutorial") {
     draw_set_color(c_black);
     draw_set_alpha(0.3);
     draw_rectangle(0, 0, 1920, 1080, false);
     draw_set_alpha(1.0);
-    draw_set_color(c_white);
-    draw_text_transformed(960, 400, "TUTORIAL", 4, 4, 0);
+    
+	draw_set_color(_col_gold);
+    draw_set_font(fnt_big_bold);
+    draw_text_transformed(960, 300, "TUTORIAL", 2, 2, 0);
+	draw_set_color(c_white);
+    draw_set_font(-1); 
     draw_text_transformed(960, 500, "Left / Right Arrow: Move\nSpace: Jump\nA: Kick\nS: Punch\nD: Block", 2, 2, 0);
     draw_text_transformed(960, 700, "Try all the movements before hitting ENTER!", 2, 2, 0);
     draw_text_transformed(960, 800, "Press ENTER to Start", 2, 2, 0);
-
 } else {
     if (instance_exists(obj_apex) && instance_exists(obj_void)) {
         
@@ -59,9 +63,24 @@ if (global.fictionland_state == "tutorial") {
         draw_set_halign(fa_center);
     }
     
-    
     if (global.fictionland_state == "gameover") {
-        draw_set_color(c_yellow);
-        draw_text_transformed(960, 500, "K.O.", 6, 6, 0);
+        if (instance_exists(obj_void) && obj_void.hp <= 0) {
+            
+            draw_set_color(make_color_rgb(255, 215, 0)); 
+            draw_set_font(fnt_big_bold);
+            draw_text(960, 400, "YOU HAVE EARNED FREEDOM\nFOR THIS UNIVERSE");
+            
+            draw_set_font(-1); 
+            
+            draw_set_color(c_white);
+            draw_text_transformed(960, 650, "Press ENTER to go to next universe", 2, 2, 0);
+            
+        } else if (instance_exists(obj_apex) && obj_apex.hp <= 0) {
+            
+            draw_set_color(c_red);
+            draw_text_transformed(960, 450, "K.O.", 6, 6, 0);
+            draw_set_color(c_white);
+            draw_text_transformed(960, 600, "Press ENTER to Retry", 2, 2, 0);
+        }
     }
-}
+} 

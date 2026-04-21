@@ -1,4 +1,4 @@
-if (global.fictionland_state != "playing") exit;
+if (global.fictionland_state != "playing" && global.fictionland_state != "gameover") exit;
 
 if (invincible > 0) {
     invincible--;
@@ -7,10 +7,14 @@ if (invincible > 0) {
     image_alpha = 1.0;
 }
 
-if (hp <= 0 && state != "hurt") {
-    global.fictionland_state = "gameover";
-    state = "hurt";
-    image_index = 0;
+if (hp <= 0) {
+    if (global.fictionland_state == "playing") {
+        global.fictionland_state = "gameover";
+    }
+    if (state != "hurt") {
+        state = "hurt";
+        image_index = 0;
+    }
 }
 
 if (state == "hurt" && hp <= 0) {
@@ -182,3 +186,10 @@ if (place_meeting(x, y, obj_apex)) {
 
 x += hsp;
 x = clamp(x, 100, 1820);
+
+if (global.fictionland_state == "gameover" && hp > 0) {
+    if (state != "punch" && state != "kick") {
+        state = "idle";
+        hsp = 0;
+    }
+}
