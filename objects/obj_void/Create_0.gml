@@ -1,9 +1,11 @@
+max_hp = 300;
 hp = 300;
 hsp = 0;
 vsp = 0;
-grv = 0.6;
+grv = 0.3;
 state = "idle";
 facing = -1;
 attacked = false;
 ground_y = 900;
 ai_timer = 0;
+invincible = 0;

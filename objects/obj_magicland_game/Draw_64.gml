@@ -17,6 +17,7 @@ if (global.magicland_tutorial) {
     draw_set_color(c_white);
     draw_text(960, 350, "You have to collect 5 scrolls hidden across the Magic Land.");
     draw_text(960, 390, "Avoid the deadly snakes and the wandering ghost to earn your freedom.");
+	draw_text(960, 450, "Try all the movements before hitting enter.");
     
     
     draw_text(960, 550, "Movement: Arrow Keys (Up, Left, Right)");

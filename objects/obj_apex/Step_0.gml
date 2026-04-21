@@ -1,5 +1,4 @@
-if (global.fictionland_state != "playing") exit;
-
+if (global.fictionland_state != "playing" && global.fictionland_state != "tutorial") exit;
 
 if (hp <= 0 && state != "hurt") {
     global.fictionland_state = "gameover";
@@ -61,10 +60,11 @@ if (state == "attack_kick" || state == "attack_punch") {
     if (floor(image_index) == 1 && !attacked) {
         attacked = true;
         var hit = collision_rectangle(x, y-350, x+(220*facing), y, obj_void, false, true);
-        if (hit != noone && hit.state != "block" && hit.hp > 0) {
+        if (hit != noone && hit.state != "block" && hit.hp > 0 && hit.invincible <= 0) {
             hit.hp -= 10;
             hit.state = "hurt";
             hit.image_index = 0;
+            hit.invincible = 60; 
         }
     }
 }

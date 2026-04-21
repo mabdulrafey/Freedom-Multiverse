@@ -1,3 +1,4 @@
+max_hp = 100;
 hp = 100;
 hsp = 0;
 vsp = 0;
@@ -6,3 +7,4 @@ state = "idle";
 facing = 1;
 attacked = false;
 ground_y = 900;
+invincible = 0;

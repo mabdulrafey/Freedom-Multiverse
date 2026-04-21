@@ -139,9 +139,9 @@
   "resourceVersion":"2.0",
   "RoomOrderNodes":[
     {"roomId":{"name":"MainMenu","path":"rooms/MainMenu/MainMenu.yy",},},
-    {"roomId":{"name":"BattleGround","path":"rooms/BattleGround/BattleGround.yy",},},
     {"roomId":{"name":"MagicLand","path":"rooms/MagicLand/MagicLand.yy",},},
     {"roomId":{"name":"FictionWorld","path":"rooms/FictionWorld/FictionWorld.yy",},},
+    {"roomId":{"name":"BattleGround","path":"rooms/BattleGround/BattleGround.yy",},},
   ],
   "templateType":"game",
   "TextureGroups":[
