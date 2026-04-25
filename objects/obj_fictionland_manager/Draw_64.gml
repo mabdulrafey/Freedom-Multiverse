@@ -53,11 +53,11 @@ if (global.fictionland_state == "tutorial") {
         
         
         draw_set_halign(fa_left);
-        draw_text_transformed(100, 110, "CAPTAIN APEX", 1.5, 1.5, 0);
+        draw_text_transformed(100, 120, "CAPTAIN APEX", 1.5, 1.5, 0);
         
         
         draw_set_halign(fa_right);
-        draw_text_transformed(1820, 110, "VOID", 1.5, 1.5, 0);
+        draw_text_transformed(1820, 120, "VOID", 1.5, 1.5, 0);
         
         
         draw_set_halign(fa_center);
