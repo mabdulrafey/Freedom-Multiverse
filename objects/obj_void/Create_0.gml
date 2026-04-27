@@ -1,5 +1,5 @@
-max_hp = 300;
-hp = 300;
+max_hp = 350;
+hp = 350;
 hsp = 0;
 vsp = 0;
 grv = 0.3;

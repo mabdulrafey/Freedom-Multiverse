@@ -58,6 +58,7 @@ if (state != "hurt" && state != "punch" && state != "kick" && state != "block" &
                 state = "jump";
                 vsp = -14;
                 hsp = facing * 6;
+				audio_play_sound(snd_void_jump, 1, false);
             } else {
                 state = "forward";
                 hsp = facing * 5;
@@ -79,11 +80,13 @@ if (state != "hurt" && state != "punch" && state != "kick" && state != "block" &
                 image_index = 0;
                 attacked = false;
                 ai_timer = 30;
+				audio_play_sound(snd_void_punch, 1, false);
             } else if (roll < 85) {
                 state = "kick";
                 image_index = 0;
                 attacked = false;
                 ai_timer = 30;	
+				audio_play_sound(snd_void_kick, 1, false);
             } else {
                 state = "idle";
                 hsp = 0;
@@ -154,6 +157,7 @@ if (state == "punch" || state == "kick") {
             hit.hp -= 10;
             hit.state = "hurt";
             hit.image_index = 0;
+			audio_play_sound(snd_apex_hurt, 1, false);
         }
     }
     

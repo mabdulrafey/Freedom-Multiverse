@@ -53,7 +53,7 @@ if (global.north_state == "win") {
     
     draw_set_font(-1); 
     draw_set_color(c_white);
-    draw_text_transformed(_cx, _cy + 50, "[ Press ENTER to go to next Universe ]", 1.25, 1.25, 0); 
+    draw_text_transformed(_cx, _cy + 50, "[ Press ENTER ]", 1.25, 1.25, 0); 
     
     if (keyboard_check_pressed(vk_enter)) { room_goto_next(); }
 } 

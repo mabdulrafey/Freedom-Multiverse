@@ -30,14 +30,17 @@ if (state != "hurt" && state != "attack_kick" && state != "attack_punch" && stat
         vsp = -16;
         y -= 1; 
         state = "jump";
+		audio_play_sound(snd_apex_jump, 1, false);
     } else if (keyboard_check_pressed(ord("A"))) {
         state = "attack_kick";
         image_index = 0;
         attacked = false;
+		audio_play_sound(snd_apex_kick, 1, false);
     } else if (keyboard_check_pressed(ord("S"))) {
         state = "attack_punch";
         image_index = 0;
         attacked = false;
+		audio_play_sound(snd_apex_punch, 1, false);
     } else if (keyboard_check(ord("D"))) {
         state = "block";
     } else if (y >= ground_y) {
@@ -69,6 +72,7 @@ if (state == "attack_kick" || state == "attack_punch") {
             hit.state = "hurt";
             hit.image_index = 0;
             hit.invincible = 60; 
+			audio_play_sound(snd_void_hurt, 1, false);
         }
     }
 }

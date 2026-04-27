@@ -1,4 +1,4 @@
-hp = 5; 
+hp = 6; 
 fly_spd = 2;
 aggro_range = 400;
 state = "patrol";
